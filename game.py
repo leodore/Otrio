@@ -2,7 +2,6 @@ import logic
 import pygame
 from pygame.locals import *
 
-
 class Board:
     def __init__(self):
         self.grid_lines = [[(25,200), (575,200)],

@@ -1,9 +1,13 @@
+import random
+
 class Game():
     def __init__(self):
         self.a = {}
+        cpu_moves = {}
         for i in range(9):
             self.a[i] = [0,0,0]
 
+    # places a player's piece on the board
     def player_move(self, cell, size, player):
         if size == "3":
             if self.a[cell][0] != 0:
@@ -26,11 +30,11 @@ class Game():
         else:
             print("invalid move a")
 
-    # i/o to test logic of game -- remove after link board and logic -- 
+    # i/o to test logic of game -- remove after link board and logic --
     def input_move(self):
         loc = input ("location: ")
         s = input ("which piece: ")
-        self.player_move(int(loc), s)
+        self.player_move(int(loc), s, 1)
 
     # checks if a player has won
     def check_win(self, player):
@@ -62,16 +66,42 @@ class Game():
                 return False
         return True
 
-    def cpu_turn():
-        # make winning input_move
-        # block winning move
-
-
+    # if there's an immediate win condition, return the winning move
+    def win_condition(self, player):
+        b = self.a
+        if (
+                (b[4][0] == b[8][0] == player) or (b[3][0] == b[6][0] == player) or
+                (b[1][0] == b[2][0] == player) or (b[4][1] == b[8][2] == player) or
+                (b[3][1] == b[6][2] == player) or (b[1][1] == b[2][2] == player) or
+                (b[0][1] == b[0][2] == player)
+           ):
+            (0,0)
+        elif(
+                (b[4][1] == b[8][1] == player) or (b[1][1] == b[2][1] == player) or
+                (b[3][1] == b[6][1] == player) or (b[0][0] == b[0][2] == player)
+            ):
+            (0,1)
+        elif(
+                
+            ):
+            (0,2)
+    def cpu_turn(self):
+        # Make winning move
+        # Block winning move
+        if self.win_condition(1) == None:
+            size = random.randint(1,3)
+            cell = random.randint(0,8)
+            self.player_move(cell, str(size), 2)
+            print("cpu moved " + str(cell) + ", " + str(size))
+        else:
+            block = win_condition(1)
+            player_move(block[0], block[1], 2)
     def run(self):
         running = True
         while running:
             self.input_move()
             running = self.check_win(1)
+            self.cpu_turn()
 
 
 def main():
